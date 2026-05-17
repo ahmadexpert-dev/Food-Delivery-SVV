@@ -1,0 +1,73 @@
+class FoodDelivery
+
+types
+
+public OrderStatus = <ACTIVE> | <PAID> | <ASSIGNED> | <DELIVERED> | <CANCELLED>;
+
+values
+
+public maxOrders : nat = 100;
+
+instance variables
+
+public orders : set of nat := {};
+public activeOrders : set of nat := {};
+public paidOrders : set of nat := {};
+public deliveredOrders : set of nat := {};
+public cancelledOrders : set of nat := {};
+public assignedRiders : map nat to nat := {|->};
+
+inv activeOrders subset orders;
+inv paidOrders subset orders;
+inv deliveredOrders subset orders;
+inv cancelledOrders subset orders;
+inv deliveredOrders inter cancelledOrders = {};
+inv dom assignedRiders subset activeOrders;
+
+operations
+
+public PlaceOrder : nat ==> ()
+PlaceOrder(orderId) ==
+(
+  orders := orders union {orderId};
+  activeOrders := activeOrders union {orderId}
+)
+pre orderId not in set orders
+post orderId in set orders and orderId in set activeOrders;
+
+public ConfirmPayment : nat ==> ()
+ConfirmPayment(orderId) ==
+(
+  paidOrders := paidOrders union {orderId}
+)
+pre orderId in set activeOrders
+post orderId in set paidOrders;
+
+public AssignRider : nat * nat ==> ()
+AssignRider(orderId, riderId) ==
+(
+  assignedRiders := assignedRiders munion {orderId |-> riderId}
+)
+pre orderId in set activeOrders and orderId in set paidOrders and orderId not in set dom assignedRiders
+post assignedRiders(orderId) = riderId;
+
+public DeliverOrder : nat ==> ()
+DeliverOrder(orderId) ==
+(
+  deliveredOrders := deliveredOrders union {orderId};
+  activeOrders := activeOrders \ {orderId}
+)
+pre orderId in set activeOrders and orderId in set paidOrders and orderId not in set cancelledOrders and orderId in set dom assignedRiders
+post orderId in set deliveredOrders and orderId not in set activeOrders;
+
+public CancelOrder : nat ==> ()
+CancelOrder(orderId) ==
+(
+  cancelledOrders := cancelledOrders union {orderId};
+  activeOrders := activeOrders \ {orderId};
+  assignedRiders := {orderId} <-: assignedRiders
+)
+pre orderId in set activeOrders and orderId not in set deliveredOrders
+post orderId in set cancelledOrders and orderId not in set activeOrders;
+
+end FoodDelivery

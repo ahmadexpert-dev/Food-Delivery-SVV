@@ -257,3 +257,35 @@ OWASP ZAP security scan documentation identified the following possible risks:
 - Missing security headers
 
 Recommendations were added to improve security reliability.
+
+
+
+
+## 10. Results
+
+The Food Delivery System was successfully verified using formal verification and validation techniques.
+
+The project achieved the following results:
+
+- System states were formally modeled using Z Notation.
+- Preconditions and postconditions were verified using VDM.
+- Alloy Analyzer detected invalid system states.
+- Counterexamples were analyzed and resolved.
+- Validation checklist confirmed functional correctness.
+- GitHub Actions verified repository consistency.
+- Security scan documentation identified possible risks.
+
+The system successfully prevents:
+
+1. Delivery of cancelled orders
+2. Delivery of unpaid orders
+3. Multiple riders assigned to one order
+4. Invalid state transitions
+
+## 11. Conclusion
+
+This project demonstrated the importance of Software Verification and Validation in ensuring system correctness and reliability.
+
+Formal methods such as Z Notation, VDM, and Alloy helped verify important constraints and system behaviors of the Food Delivery System.
+
+The project successfully satisfied the minimum SVV technical requirements and provided a structured verification pipeline for software correctness.

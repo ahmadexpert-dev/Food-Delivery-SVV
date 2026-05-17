@@ -1,0 +1,88 @@
+[USER, ORDER, RIDER, RESTAURANT]
+
+FoodDeliverySystem
+orders : \power ORDER
+activeOrders : \power ORDER
+cancelledOrders : \power ORDER
+deliveredOrders : \power ORDER
+paidOrders : \power ORDER
+assignedRider : ORDER \pfun RIDER
+
+activeOrders \subseteq orders
+cancelledOrders \subseteq orders
+deliveredOrders \subseteq orders
+paidOrders \subseteq orders
+cancelledOrders \cap deliveredOrders = \emptyset
+\dom assignedRider \subseteq activeOrders
+
+PlaceOrder
+\Delta FoodDeliverySystem
+newOrder? : ORDER
+
+newOrder? \notin orders
+
+orders' = orders \cup {newOrder?}
+activeOrders' = activeOrders \cup {newOrder?}
+cancelledOrders' = cancelledOrders
+deliveredOrders' = deliveredOrders
+paidOrders' = paidOrders
+assignedRider' = assignedRider
+
+ConfirmPayment
+\Delta FoodDeliverySystem
+o? : ORDER
+
+o? \in activeOrders
+
+paidOrders' = paidOrders \cup {o?}
+orders' = orders
+activeOrders' = activeOrders
+cancelledOrders' = cancelledOrders
+deliveredOrders' = deliveredOrders
+assignedRider' = assignedRider
+
+AssignRider
+\Delta FoodDeliverySystem
+o? : ORDER
+r? : RIDER
+
+o? \in activeOrders
+o? \in paidOrders
+o? \notin \dom assignedRider
+
+assignedRider' = assignedRider \cup {o? \mapsto r?}
+orders' = orders
+activeOrders' = activeOrders
+cancelledOrders' = cancelledOrders
+deliveredOrders' = deliveredOrders
+paidOrders' = paidOrders
+
+DeliverOrder
+\Delta FoodDeliverySystem
+o? : ORDER
+
+o? \in activeOrders
+o? \in paidOrders
+o? \notin cancelledOrders
+o? \in \dom assignedRider
+
+deliveredOrders' = deliveredOrders \cup {o?}
+activeOrders' = activeOrders \setminus {o?}
+orders' = orders
+cancelledOrders' = cancelledOrders
+paidOrders' = paidOrders
+assignedRider' = assignedRider
+
+CancelOrder
+\Delta FoodDeliverySystem
+o? : ORDER
+
+o? \in activeOrders
+o? \notin deliveredOrders
+
+cancelledOrders' = cancelledOrders \cup {o?}
+activeOrders' = activeOrders \setminus {o?}
+orders' = orders
+deliveredOrders' = deliveredOrders
+paidOrders' = paidOrders
+assignedRider' = {o?} \ndres assignedRider

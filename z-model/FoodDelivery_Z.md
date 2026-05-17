@@ -38,3 +38,88 @@ dom assignedRider ⊆ activeOrders
 #### Invariant 3: Delivered orders must be paid
 
 deliveredOrders ⊆ paidOrders
+
+
+
+
+### Operation 1: Place Order
+
+PlaceOrder
+Δ FoodDeliverySystem
+newOrder? : ORDER
+
+newOrder? ∉ orders
+
+orders' = orders ∪ {newOrder?}
+activeOrders' = activeOrders ∪ {newOrder?}
+cancelledOrders' = cancelledOrders
+deliveredOrders' = deliveredOrders
+paidOrders' = paidOrders
+assignedRider' = assignedRider
+
+### Operation 2: Confirm Payment
+
+ConfirmPayment
+Δ FoodDeliverySystem
+o? : ORDER
+
+o? ∈ activeOrders
+
+paidOrders' = paidOrders ∪ {o?}
+orders' = orders
+activeOrders' = activeOrders
+cancelledOrders' = cancelledOrders
+deliveredOrders' = deliveredOrders
+assignedRider' = assignedRider
+
+### Operation 3: Assign Rider
+
+AssignRider
+Δ FoodDeliverySystem
+o? : ORDER
+r? : RIDER
+
+o? ∈ activeOrders
+o? ∈ paidOrders
+o? ∉ dom assignedRider
+
+assignedRider' = assignedRider ∪ {o? ↦ r?}
+orders' = orders
+activeOrders' = activeOrders
+cancelledOrders' = cancelledOrders
+deliveredOrders' = deliveredOrders
+paidOrders' = paidOrders
+
+### Operation 4: Deliver Order
+
+DeliverOrder
+Δ FoodDeliverySystem
+o? : ORDER
+
+o? ∈ activeOrders
+o? ∈ paidOrders
+o? ∉ cancelledOrders
+o? ∈ dom assignedRider
+
+deliveredOrders' = deliveredOrders ∪ {o?}
+activeOrders' = activeOrders \ {o?}
+orders' = orders
+cancelledOrders' = cancelledOrders
+paidOrders' = paidOrders
+assignedRider' = assignedRider
+
+### Operation 5: Cancel Order
+
+CancelOrder
+Δ FoodDeliverySystem
+o? : ORDER
+
+o? ∈ activeOrders
+o? ∉ deliveredOrders
+
+cancelledOrders' = cancelledOrders ∪ {o?}
+activeOrders' = activeOrders \ {o?}
+orders' = orders
+deliveredOrders' = deliveredOrders
+paidOrders' = paidOrders
+assignedRider' = assignedRider \ {o?} ◁ assignedRider

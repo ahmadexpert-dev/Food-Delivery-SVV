@@ -141,3 +141,40 @@ Customer Login → Place Order → Confirm Payment → Assign Rider → Deliver 
 Cancellation flow:
 
 Place Order → Cancel Order
+
+
+
+## 7. VDM Functional Specification
+
+VDM was used to specify operation behavior using preconditions and postconditions.
+
+### 7.1 Preconditions
+
+Preconditions ensure that operations execute only under valid conditions.
+
+Examples:
+
+- An order must exist before payment confirmation.
+- An order must be active before rider assignment.
+- A cancelled order cannot be delivered.
+
+### 7.2 Postconditions
+
+Postconditions verify the system state after operation execution.
+
+Examples:
+
+- PlaceOrder adds a new order into active orders.
+- ConfirmPayment adds the order into paid orders.
+- DeliverOrder moves the order into delivered orders.
+- CancelOrder removes the order from active orders.
+
+### 7.3 Verified Operations
+
+The following operations were specified and verified:
+
+- PlaceOrder
+- ConfirmPayment
+- AssignRider
+- DeliverOrder
+- CancelOrder

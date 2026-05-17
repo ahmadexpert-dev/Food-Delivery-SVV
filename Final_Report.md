@@ -215,3 +215,45 @@ The issue was resolved by adding the constraint:
 no (cancelledOrders & deliveredOrders)
 
 After applying the constraint, the invalid state was prevented successfully.
+
+
+
+## 9. Validation and Security
+
+### 9.1 Validation Checklist
+
+The validation checklist was created to ensure that all functional requirements behave correctly.
+
+The following areas were validated:
+
+- User login
+- Order placement
+- Payment confirmation
+- Rider assignment
+- Order cancellation
+- Order delivery
+- Invalid state prevention
+
+### 9.2 CI Pipeline Validation
+
+GitHub Actions was used to validate repository structure and required SVV files.
+
+The CI pipeline verified:
+
+- Requirements files
+- Z model files
+- VDM specification files
+- Alloy model files
+- Validation documents
+
+The workflow executed successfully.
+
+### 9.3 Security Scan
+
+OWASP ZAP security scan documentation identified the following possible risks:
+
+- Missing input validation
+- Weak authentication policies
+- Missing security headers
+
+Recommendations were added to improve security reliability.

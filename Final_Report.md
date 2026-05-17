@@ -178,3 +178,40 @@ The following operations were specified and verified:
 - AssignRider
 - DeliverOrder
 - CancelOrder
+
+
+## 8. Alloy Structural Verification
+
+Alloy Analyzer was used to verify relational constraints and identify invalid system states.
+
+### 8.1 Alloy Model
+
+The model included:
+
+- Orders
+- Riders
+- Active Orders
+- Cancelled Orders
+- Delivered Orders
+- Rider Assignment Relations
+
+### 8.2 Constraints
+
+The following constraints were verified:
+
+1. Cancelled orders cannot be delivered.
+2. Delivered orders must be paid.
+3. Only active orders can have assigned riders.
+4. One order can have only one rider.
+
+### 8.3 Counterexample Analysis
+
+Initially, the system allowed an invalid state where an order existed in both cancelledOrders and deliveredOrders.
+
+This inconsistency was detected using Alloy Analyzer.
+
+The issue was resolved by adding the constraint:
+
+no (cancelledOrders & deliveredOrders)
+
+After applying the constraint, the invalid state was prevented successfully.

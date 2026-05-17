@@ -32,7 +32,7 @@ The main objectives of this project are:
 - To validate the system using checklist, CI pipeline, and security scan.
 
 
-  ## 3. Methodology
+## 3. Methodology
 
 This project follows the mandatory Software Verification and Validation pipeline:
 
@@ -54,3 +54,46 @@ The following tools were used in this project:
 - Overture / VDMTools for VDM specification
 - Alloy Analyzer for structural verification
 - OWASP ZAP for security scan documentation
+
+
+## 5. Requirement Engineering
+
+### 5.1 Functional Requirements
+
+- FR-1: Customer shall log into the system.
+- FR-2: Customer shall place food orders.
+- FR-3: Restaurant shall accept or reject orders.
+- FR-4: System shall confirm payment before delivery.
+- FR-5: System shall assign one rider to one active order.
+- FR-6: Rider shall update order delivery status.
+- FR-7: Customer shall cancel active orders.
+- FR-8: System shall prevent delivery of cancelled orders.
+
+### 5.2 Non-Functional Requirements
+
+- The system shall maintain consistency of order states.
+- The system shall prevent invalid state transitions.
+- The system shall validate user input.
+- The system shall support secure authentication.
+- The system shall ensure reliability during delivery processing.
+
+### 5.3 Requirement Defect Taxonomy
+
+The following defects were identified during requirement analysis:
+
+| Requirement | Defect Type | Description |
+|---|---|---|
+| FR-3 | Ambiguity | Order rejection timing was not clearly defined |
+| FR-4 | Non-Verifiability | Payment confirmation method was unspecified |
+| FR-7 | Inconsistency | Cancellation rules after dispatch were unclear |
+| FR-5 | Ambiguity | Multiple rider assignment was not restricted |
+
+### 5.4 GitHub Issues Tracking
+
+GitHub Issues were used to track system defects and inconsistencies.
+
+The following issues were created:
+
+- Invalid delivery allowed after cancellation
+- Multiple riders assigned to same active order
+- Missing payment validation before delivery

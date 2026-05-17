@@ -123,3 +123,27 @@ orders' = orders
 deliveredOrders' = deliveredOrders
 paidOrders' = paidOrders
 assignedRider' = assignedRider \ {o?} ◁ assignedRider
+
+
+
+### State Transition Model
+
+Normal order flow:
+
+Customer Login
+→ Place Order
+→ Confirm Payment
+→ Assign Rider
+→ Deliver Order
+
+Cancellation flow:
+
+Place Order
+→ Cancel Order
+
+Invalid transitions prevented by invariants:
+
+1. Cancelled Order → Delivered Order
+2. Delivered Order → Cancelled Order
+3. Unpaid Order → Delivered Order
+4. Active Order → Multiple Riders

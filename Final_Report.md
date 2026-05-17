@@ -97,3 +97,47 @@ The following issues were created:
 - Invalid delivery allowed after cancellation
 - Multiple riders assigned to same active order
 - Missing payment validation before delivery
+
+
+
+## 6. Z Notation Formal Model
+
+Z Notation was used to formally define the state of the Food Delivery System, including orders, active orders, cancelled orders, delivered orders, paid orders, and assigned riders.
+
+### 6.1 System States
+
+The main system states are:
+
+- Active Order
+- Paid Order
+- Cancelled Order
+- Delivered Order
+- Rider Assigned Order
+
+### 6.2 Invariants
+
+The following invariants were defined:
+
+1. Cancelled orders and delivered orders must be disjoint.
+2. Only active orders can have assigned riders.
+3. Delivered orders must be paid before completion.
+
+### 6.3 Operations
+
+The following operations were modeled:
+
+- PlaceOrder
+- ConfirmPayment
+- AssignRider
+- DeliverOrder
+- CancelOrder
+
+### 6.4 State Transition
+
+Normal flow:
+
+Customer Login → Place Order → Confirm Payment → Assign Rider → Deliver Order
+
+Cancellation flow:
+
+Place Order → Cancel Order

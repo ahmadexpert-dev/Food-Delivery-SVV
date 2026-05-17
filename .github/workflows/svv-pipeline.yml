@@ -1,0 +1,37 @@
+name: SVV Verification Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify-project-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify required folders
+        run: |
+          test -d requirements
+          test -d z-model
+          test -d vdm-spec
+          test -d alloy-model
+          test -d validation
+          echo "All required folders exist."
+
+      - name: Verify required SVV files
+        run: |
+          test -f requirements/SRS.md
+          test -f requirements/Requirement_Defect_Taxonomy.md
+          test -f requirements/GitHub_Issues_Log.md
+          test -f z-model/FoodDelivery_Z.md
+          test -f vdm-spec/FoodDelivery.vdmsl
+          test -f alloy-model/FoodDelivery.als
+          test -f alloy-model/Counterexample_Analysis.md
+          test -f validation/Validation_Checklist.md
+          echo "All required SVV files exist."
+
+      - name: SVV pipeline completed
+        run: echo "Food Delivery System SVV verification pipeline completed successfully."
